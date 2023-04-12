@@ -27,22 +27,31 @@
           };
         in
         rec {
+
+          # No error
           packages.pythonEnvWithGradio = mach-nix.lib.${system}.mkPython {
             requirements = ''
               gradio
             '';
           };
+
+          # No error
           packages.pythonEnvWithRich = mach-nix.lib.${system}.mkPython {
             requirements = ''
               rich
             '';
           };
+
+          # ERROR: Could not find a version that satisfies the requirement linkify-it-py<3,>=1; extra == "linkify" (from markdown-it-py[linkify]) (from versions: none)
+          # ERROR: No matching distribution found for linkify-it-py<3,>=1; extra == "linkify"
           packages.pythonEnvWithGradioAndRich = mach-nix.lib.${system}.mkPython {
             requirements = ''
               gradio
               rich
             '';
           };
+
+          # No error
           packages.pythonEnvWithGradioAndRichWorkaround = mach-nix.lib.${system}.mkPython {
             requirements = ''
               gradio
@@ -50,8 +59,6 @@
             '';
             providers.markdown-it-py = "sdist";
           };
-
-          
         }
       );
 }
